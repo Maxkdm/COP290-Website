@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>New Post</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='newPost.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <img class="component-2-child10" alt="" src="./public/rectangle-3@2x.png"/>
+            <div class="top">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }} " alt="logo">
+                </div>
+                <div class="titl">
+                    <h1>Tesseract</h1>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="btn-group">
+                    
+                    <button><a style="text-decoration: none" href="{{ url_for('timeline', user_id = user['user_id']) }}"><span>Timeline</span></a></button>
+                    <button><a style="text-decoration: none" href="{{ url_for('profile', user_id = user['user_id']) }}"><span>Profile</span></a></button>
+                    <button><a style="text-decoration: none" href="{{ url_for('login') }}"><span>Logout</span></a></button>
+                </div>
+                <div class="createPost">
+                    <div class="heading"><h2>Create a New Post !!!</h2></div>
+                        <div class="new">
+
+                            <form method="post" enctype="multipart/form-data" id="myForm">
+                                <div class="form-group">
+                                    <label for="pic">Upload Image</label>
+                                    <input type="file" name="pic" class="form-control-file" id="pic">
+                                </div>
+                                <div class="form-group">
+                                    <label for="content"></label>
+                                    <textarea name="content" class="form-control" placeholder="Add post content"></textarea>
+                                </div>
+                                <div class="buttons">
+                                    <input type="submit" name="submit_button" value="Publish">
+                                    <input type="submit" name="submit_button" value="Discard" onclick="document.getElementById('myForm').reset();">
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

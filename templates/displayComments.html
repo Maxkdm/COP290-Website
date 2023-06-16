@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Comments</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='displayComments.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="top">
+                <h1>Tesseract</h1>
+            </div>
+            <div class="bottom">
+                <div class="btn-group">
+                    
+                    <button><a style="text-decoration: none" href="{{ url_for('timeline', user_id = user['user_id']) }}"><span>Timeline</span></a></button>
+                    <button><a style="text-decoration: none" href="{{ url_for('profile', user_id = user['user_id']) }}"><span>Profile</span></a></button>
+                    <button><a style="text-decoration: none" href="{{ url_for('login') }}"><span>Logout</span></a></button>
+                </div>
+                <div class="com21">
+                    <div class="commentttr">
+                        <h1>Comments</h1>
+                        <button><a style="text-decoration: none" href="{{ url_for('newComment', user_id=user['user_id'], post_id=post['post_id']) }}">Add Comment</a></button>
+
+                    </div>
+                    {% for comment in comments %}
+                    <div class="fullbox">
+                        <div class="loweup">
+                            <a href="{{ url_for('profile', user_id=comment['user_id']) }}">
+                            <div class="imm11"  style="background-image: url('{{ url_for('static', filename='unk.jpg') }}');">
+                            </div>
+                            </a>
+                            <div class="comtext">
+                                <p>{{ comment['content'] }}</p>
+                            </div>
+                        </div>  
+                        <div class="lldd">
+                            <div class="k1">
+                                <div class="imlike">
+                                    <img src="{{ url_for('static',filename='like_photo.png')}}">
+                                </div>
+                            </div>
+                            <div class="k1">
+                                <div class="imdislike">
+                                    <img src="{{ url_for('static',filename='dislike_pic.png')}}">
+                                </div>
+                            </div>
+                        </div>                 
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

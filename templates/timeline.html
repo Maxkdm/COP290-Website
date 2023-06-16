@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Timeline</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pop.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="top">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }} " alt="logo">
+                </div>
+                <div class="titl">
+                    <h1>Tesseract</h1>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="btn-group">
+                    
+                    <button><a style="text-decoration: none" href="{{ url_for('timeline', user_id = user['user_id']) }}"><span>Timeline</span></a></button>
+                    <button><a style="text-decoration: none" href="{{ url_for('profile', user_id = user['user_id']) }}"><span>Profile</span></a></button>
+                    <button><a style="text-decoration: none" href="{{ url_for('login') }}"><span>Logout</span></a></button>
+                </div>
+                <div class="poss">
+                    {% for post in posts %}
+                    <div class="postts">
+                        <div class="nameDate">
+                            <div class="pp" style="background-image: url('{{ url_for('static', filename='unk.jpg') }}');">
+                                {% if post['pic'] is not none %}
+                                    <img src="{{ url_for('static', filename=post['pic']) }}" alt="Profile Picture">
+                                {% endif %}
+                            </div>
+                            <div class="name">
+                                <h2><a href="{{ url_for('profile', user_id=post['user_id']) }}">{{ post['username'] }}</a></h2>
+                            </div>
+                            <div class="dateTime"><h3>{{ post['created'] }}</h3> </div>
+                        </div>
+
+                        {% if post['pic'] %}
+                            <div class="pic">
+                                <img src="{{ url_for('static', filename='load.jpg') }}" alt="Default Image">
+                            </div>
+                        {% endif %}
+
+                        <div class="content">
+                            <h2>{{ post['content'] }}</h2>
+                        </div>
+                        <div class="likeDislike">
+                            <div class="comments">
+                                <a href="{{ url_for('comments', user_id=user['user_id'], post_id=post['post_id']) }}">
+                                    <img src="{{ url_for('static', filename='Comment.png') }}" width="20px" height="20px">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="apipart">
+
+                    <blockquote>
+                        <p>Giving other people advice is one of the most irritating and useless activities known to man.</p>
+                        <footer>- Barbara Mertz</footer>
+                      </blockquote>
+                      <hr>
+                      <h3>Get some advice:</h3>
+                      <p class="advice"></p>
+                      <button class="btn" onclick="getAdvice()">New Advice</button>
+                      <p class="loading" style="display:none;">Fetching advice...</p>
+
+                </div>
+            </div>
+        </div>
+        <script>
+
+            function getAdvice() {
+                document.querySelector('.loading').style.display = 'block';
+                document.querySelector('.advice').style.display = 'none';
+                fetch('https://api.adviceslip.com/advice')
+                .then(response => response.json())
+                .then(data => {
+                    const advice = data.slip.advice;
+                    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16); // generate random color
+                    document.querySelector('.advice').innerHTML = advice;
+                    document.querySelector('.advice').style.color = randomColor; // apply random color
+                    document.querySelector('.advice').style.textShadow = `0.2px 0.2px 1px #000,
+                                                          -0.2px -0.2px 0 #000,
+                                                          0.2px -0.2px 0 #000,
+                                                          -0.2px 0.2px 0 #000`; // apply black outline
+                    document.querySelector('.advice').style.display = 'block';
+                    document.querySelector('.loading').style.display = 'none';
+                })
+            .catch(error => console.error(error));
+    }
+            
+          </script>
+    </body>
+</html>
