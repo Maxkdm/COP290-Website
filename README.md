@@ -30,10 +30,12 @@ Team Name: And Yet It Compiles
 
 Members :
 
+Mrunal Kadhane 2021CS10109
+
 Kanishka Gajbhiye 2021CS50131
 
 Riddhidipta Pal 2021CS10546
 
-Rama Sahitya Bandaru 2021CS10579
 
-Mrunal Kadhane 2021CS10109
+
+
